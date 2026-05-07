@@ -18,7 +18,7 @@ public class CarroController {
     private CarroService carroService;
 
     // Salvar carro (corrigido para POST)
-    @PostMapping
+    @PostMapping("salvar")
     public ResponseEntity<Carro> salvarCarro(@RequestBody Carro c) {
         Carro savedCarro = carroService.save(c);
         return ResponseEntity.ok(savedCarro);
