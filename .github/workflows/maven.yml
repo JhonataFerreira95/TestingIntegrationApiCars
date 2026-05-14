@@ -3,8 +3,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "dev" ]
-  pull_request:
-    branches: [ "dev" ]
 
 jobs:
   build:
@@ -20,8 +18,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run Unit Tests
-        run: mvn test
+      - name: Grant execute permission to Maven Wrapper
+        run: chmod +x mvnw
 
-      - name: Build with Maven
-        run: mvn package -DskipTests
+      - name: Compile and run tests
+        run: ./mvnw -B clean test
