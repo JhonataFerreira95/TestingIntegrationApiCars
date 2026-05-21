@@ -1,4 +1,3 @@
-
 package br.org.edu.ifrn.LojaCarro.services;
 
 import br.org.edu.ifrn.LojaCarro.model.Carro;
@@ -19,23 +18,23 @@ public class CarroService {
         return carroRepository.save(c);
     }
 
-    // Novo método para deletar por ID
     public void deleteById(Long id) {
         carroRepository.deleteById(id);
     }
 
-    // Novo método para pesquisar por ID
     public Optional<Carro> findById(Long id) {
         return carroRepository.findById(id);
     }
 
-    // Novo método para listar todos os carros
     public List<Carro> findAll() {
         return carroRepository.findAll();
     }
 
-    // Método para atualizar (usa o save existente, mas pode ser renomeado se preferir)
+    // Verifica se o ID existe antes de salvar — lança exceção se não encontrar
     public Carro update(Carro c) {
-        return carroRepository.save(c);  // Retorna o carro salvo para feedback
+        if (!carroRepository.existsById(c.getId())) {
+            throw new RuntimeException("Carro não encontrado: " + c.getId());
+        }
+        return carroRepository.save(c);
     }
 }

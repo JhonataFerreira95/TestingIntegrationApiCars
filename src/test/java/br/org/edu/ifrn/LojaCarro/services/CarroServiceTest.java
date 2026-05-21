@@ -11,13 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CarroServiceTest {
@@ -45,12 +40,27 @@ class CarroServiceTest {
     void updateDeveDelegarParaRepositoryERetornarCarroAtualizado() {
         Carro carro = criarCarro(2L, "Onix", 2022);
 
+        // mock do existsById que adicionamos no CarroService
+        when(carroRepository.existsById(carro.getId())).thenReturn(true);
         when(carroRepository.save(carro)).thenReturn(carro);
 
         Carro resultado = carroService.update(carro);
 
         assertSame(carro, resultado);
+        verify(carroRepository).existsById(carro.getId());
         verify(carroRepository).save(carro);
+        verifyNoMoreInteractions(carroRepository);
+    }
+
+    @Test
+    void updateDevelancarExcecaoQuandoIdNaoExiste() {
+        Carro carro = criarCarro(99L, "Inexistente", 2020);
+
+        when(carroRepository.existsById(carro.getId())).thenReturn(false);
+
+        assertThrows(RuntimeException.class, () -> carroService.update(carro));
+
+        verify(carroRepository).existsById(carro.getId());
         verifyNoMoreInteractions(carroRepository);
     }
 
