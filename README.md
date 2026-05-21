@@ -10,6 +10,5 @@
 
 - Resumo testings:
 
-    > Testes executados localmente: 17, com 1 falha → 16 passaram. Teste com falha: CarroControllerIntegrationTest.deveListarCarrosInseridosViaSql.
-
+    > Testes executados localmente: 17, com 0 falha → 17 passaram.
     ![testing](/assets/Screenshot_1.png)
