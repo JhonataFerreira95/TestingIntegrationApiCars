@@ -7,3 +7,7 @@
         ./mvnw verify -Dspring.profiles.active=test
 
     ```
+
+- Resumo testings:
+
+    > Testes executados localmente: 17, com 1 falha → 16 passaram. Teste com falha: CarroControllerIntegrationTest.deveListarCarrosInseridosViaSql.
